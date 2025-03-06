@@ -2,12 +2,12 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="AdventureWorks.MainPage"
-             Title="{StaticResource ApplicationTitle}">
+             Title="{DynamicResource ApplicationTitle}">
 
     <Grid 
         RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto, Auto"
         ColumnDefinitions="Auto,*"
-        Style="{StaticResource Grid.Page}">
+        Style="{StaticResource GridPage}">
         <Label 
             Grid.Row="0"
             Grid.ColumnSpan="2"

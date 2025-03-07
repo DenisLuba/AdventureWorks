@@ -5,6 +5,9 @@
         public AppShell()
         {
             InitializeComponent();
+
+            // Register a route
+            Routing.RegisterRoute(nameof(Views.UserDetailView), typeof(Views.UserDetailView));
         }
     }
 }

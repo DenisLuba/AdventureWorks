@@ -1,34 +1,24 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:partial="clr-namespace:AdventureWorks.ViewsPartial"
              x:Class="AdventureWorks.Views.UserDetailView"
              Title="{StaticResource UserDetailTitle}">
 
     <ScrollView>
         <Grid 
-            RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto, Auto"
+            RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto, Auto"
             ColumnDefinitions="Auto,*"
             Style="{StaticResource Grid.Page}">
-            <Label 
-                Grid.Row="0"
+
+            <partial:HeaderView 
+                Grid.Row="0" 
                 Grid.ColumnSpan="2"
-                Text="User Information"
-                FontSize="Title" />
+                ViewTitle="User Information"
+                ViewDescription="Use this screen to modify user information." />
+
             <Label
                 Grid.Row="1"
-                Grid.ColumnSpan="2"
-                Text="Use this Screen to Modify User Information."
-                FontSize="Body" />
-
-            <BoxView
-                Grid.Row="2"
-                Grid.ColumnSpan="2"
-                Margin="0,0,0,20"
-                HeightRequest="1"
-                Color="Black" />
-
-            <Label
-                Grid.Row="3"
                 Text="Login ID" />
             <VerticalStackLayout Grid.Row="3" Grid.Column="1">
                 <Entry
@@ -37,18 +27,18 @@
                 <Label Text="Please use a combination of letters and numbers." />
             </VerticalStackLayout>
 
-            <Label Grid.Row="4" Text="First Name" />
+            <Label Grid.Row="2" Text="First Name" />
+            <Entry Grid.Row="2" Grid.Column="1" Text="" />
+
+            <Label Grid.Row="3" Text="Last Name" />
+            <Entry Grid.Row="3" Grid.Column="1" Text="" />
+
+            <Label Grid.Row="4" Text="Email Address" />
             <Entry Grid.Row="4" Grid.Column="1" Text="" />
 
-            <Label Grid.Row="5" Text="Last Name" />
-            <Entry Grid.Row="5" Grid.Column="1" Text="" />
-
-            <Label Grid.Row="6" Text="Email Address" />
-            <Entry Grid.Row="6" Grid.Column="1" Text="" />
-
-            <Label Grid.Row="7" Text="Is Enrolled?" />
+            <Label Grid.Row="5" Text="Is Enrolled?" />
             <FlexLayout
-                Grid.Row="7"
+                Grid.Row="5"
                 Grid.Column="1"
                 Wrap="Wrap"
                 Direction="Row">
@@ -74,7 +64,7 @@
                 </HorizontalStackLayout>
             </FlexLayout>
 
-            <HorizontalStackLayout Grid.Row="8" Grid.Column="1">
+            <HorizontalStackLayout Grid.Row="6" Grid.Column="1">
                 <Button Text="Save" />
                 <Button Text="Cancel" />
             </HorizontalStackLayout>

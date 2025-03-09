@@ -4,10 +4,16 @@
              x:Class="AdventureWorks.MainPage"
              Title="{StaticResource ApplicationTitle}">
 
-    <Label 
-        Text="{StaticResource ApplicationTitle}"
-        FontSize="Large"
+    <Border
+        Stroke="Black"
+        StrokeThickness="2"
+        HorizontalOptions="Center"
         VerticalOptions="Center"
-        HorizontalOptions="Center" />
-    
+        Padding="10">
+        <Label 
+            Text="{StaticResource ApplicationTitle}"
+            FontSize="Large"
+            VerticalOptions="Center"
+            HorizontalOptions="Center" />
+    </Border>
 </ContentPage>

@@ -28,10 +28,26 @@
                 <Entry Grid.Row="3" Grid.Column="1" />
 
                 <Label Grid.Row="4" Text="Cost" />
-                <Entry Grid.Row="4" Grid.Column="1" Keyboard="Numeric" />
+                <HorizontalStackLayout Grid.Row="4" Grid.Column="1">
+                    <Entry Text="{Binding Value}" BindingContext="{x:Reference CostStepper}" />
+                    <Stepper
+                        x:Name="CostStepper"
+                        Minimum="1"
+                        Maximum="{Binding Value}"
+                        BindingContext="{x:Reference PriceStepper}"
+                        Increment="1" />
+                </HorizontalStackLayout>
 
                 <Label Grid.Row="5" Text="Price" />
-                <Entry Grid.Row="5" Grid.Column="1" Keyboard="Numeric" />
+                <HorizontalStackLayout Grid.Row="5" Grid.Column="1">
+                    <Entry Text="{Binding Value}" BindingContext="{x:Reference PriceStepper}" />
+                    <Stepper
+                        x:Name="PriceStepper"
+                        Minimum="{Binding Value}"
+                        BindingContext="{x:Reference CostStepper}"
+                        Maximum="9999"
+                        Increment="1" />
+                </HorizontalStackLayout>
 
                 <Label Grid.Row="6" Text="Size" />
                 <Entry Grid.Row="6" Grid.Column="1" Keyboard="Numeric" />

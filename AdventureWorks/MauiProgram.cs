@@ -1,6 +1,11 @@
 ﻿using Microsoft.Extensions.Logging;
 using Microsoft.Maui.LifecycleEvents;
+using Microsoft.Maui.Handlers;
+using Microsoft.Maui.Platform;
+using Microsoft.Maui.Controls.PlatformConfiguration;
+using Microsoft.Maui;
 #if WINDOWS
+using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Windowing;
 using Microsoft.UI;
 using WinRT.Interop;
@@ -19,6 +24,12 @@ public static class MauiProgram
             {
                 fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                 fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
+            })
+            .ConfigureMauiHandlers(handlers =>
+            {
+#if WINDOWS
+                handlers.AddHandler<Microsoft.Maui.Controls.TimePicker, CustomTimePickerHandler>();
+#endif
             });
 
 #if WINDOWS
@@ -94,3 +105,38 @@ public static class MauiProgram
 #endif
 }
 
+#if WINDOWS
+// Настройки обработчика TimePicker в Windows. Но из всего работает только MinuteIncrement
+public class CustomTimePickerHandler : TimePickerHandler
+{
+    protected override Microsoft.UI.Xaml.Controls.TimePicker CreatePlatformView()
+    {
+        var platformView = base.CreatePlatformView();
+        CustomizeTimePicker(platformView);
+        return platformView;
+    }
+
+    private void CustomizeTimePicker(Microsoft.UI.Xaml.Controls.TimePicker winTimePicker)
+    {
+        // Основные настройки
+        winTimePicker.Background = new Microsoft.UI.Xaml.Media
+            .SolidColorBrush(Windows.UI.Color.FromArgb(255, 240, 240, 240)); // Серый фон
+
+        winTimePicker.Foreground = new Microsoft.UI.Xaml.Media
+            .SolidColorBrush(Windows.UI.Color.FromArgb(255, 0, 120, 212)); // Синий текст
+
+        // Настройки часов/минут
+        winTimePicker.MinuteIncrement = 10; // Шаг 10 минут
+        winTimePicker.ClockIdentifier = "24HourClock"; // 24-часовой формат
+
+        // Стиль границы
+        winTimePicker.BorderBrush = new Microsoft.UI.Xaml.Media
+            .SolidColorBrush(Windows.UI.Color.FromArgb(255, 240, 240, 240));
+        winTimePicker.BorderThickness = new Microsoft.UI.Xaml.Thickness(2);
+
+        // Размеры
+        winTimePicker.Width = 200;
+        winTimePicker.Height = 40;
+    }
+}
+#endif

@@ -3,14 +3,33 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:partial="clr-namespace:AdventureWorks.ViewsPartial"
              xmlns:converters="clr-namespace:AdventureWorks.Converters"
+             xmlns:view_model="clr-namespace:AdventureWorks.EntityLayer.EntityClasses;assembly=AdventureWorks.EntityLayer"
+             x:DataType="view_model:User"
              x:Class="AdventureWorks.Views.UserDetailView"
              Title="{StaticResource UserDetailTitle}">
 
     <ContentPage.Resources>
         <converters:InvertedBoolConverter x:Key="invertedBoolean" />
+
+        <view_model:User 
+            x:Key="viewModel"
+            LoginId="JohnSmith123"
+            FirstName="John"
+            LastName="Smith"
+            Emali="John@smith.com"
+            Phone="615.222.2333"
+            PhoneType="Mobile"
+            IsFullTime="True"
+            IsEnrolledIn401k="True"
+            IsEnrolledInFlexTime="True"
+            IsEnrolledInHealthCare="True"
+            IsEnrolledInHSA="False"
+            IsActive="True"
+            BirthDate="10-03-1975" />
+        
     </ContentPage.Resources>
 
-    <Border Style="{StaticResource Border.Page}">
+    <Border Style="{StaticResource Border.Page}" BindingContext="{StaticResource viewModel}">
         <ScrollView>
             <Grid 
                 RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto"
@@ -29,18 +48,18 @@
                 <VerticalStackLayout Grid.Row="1" Grid.Column="1">
                     <Entry
                         Placeholder="Please use a combination of letters and numbers."
-                        Text="" />
+                        Text="{Binding LoginId}" />
                     <Label Text="Please use a combination of letters and numbers." />
                 </VerticalStackLayout>
 
                 <Label Grid.Row="2" Text="First Name" />
-                <Entry Grid.Row="2" Grid.Column="1" Text="" />
+                <Entry Grid.Row="2" Grid.Column="1" Text="{Binding FirstName}" />
 
                 <Label Grid.Row="3" Text="Last Name" />
-                <Entry Grid.Row="3" Grid.Column="1" Text="" />
+                <Entry Grid.Row="3" Grid.Column="1" Text="{Binding LastName}" />
 
                 <Label Grid.Row="4" Text="Email Address" />
-                <Entry Grid.Row="4" Grid.Column="1" Text="" />
+                <Entry Grid.Row="4" Grid.Column="1" Text="{Binding Emali}" />
 
                 <Label Grid.Row="5" Text="Is Enrolled?" />
                 <FlexLayout
@@ -51,27 +70,27 @@
 
                     <HorizontalStackLayout>
                         <Label Text="401k?" />
-                        <CheckBox  />
+                        <CheckBox  IsChecked="{Binding IsEnrolledIn401k}"/>
                     </HorizontalStackLayout>
 
                     <HorizontalStackLayout>
                         <Label Text="Flex Time?" />
-                        <CheckBox x:Name="FlexTime"/>
+                        <CheckBox x:Name="FlexTime" IsChecked="{Binding IsEnrolledInFlexTime}"/>
                     </HorizontalStackLayout>
 
                     <HorizontalStackLayout>
                         <Label Text="Health Care?" />
-                        <CheckBox />
+                        <CheckBox IsChecked="{Binding IsEnrolledInHealthCare}"/>
                     </HorizontalStackLayout>
 
                     <HorizontalStackLayout>
                         <Label Text="Health Savings Account?" />
-                        <CheckBox />
+                        <CheckBox IsChecked="{Binding IsEnrolledInHSA}"/>
                     </HorizontalStackLayout>
                 </FlexLayout>
 
                 <Label Grid.Row="6" Text="Still Employed?" />
-                <Switch Grid.Row="6" Grid.Column="1" />
+                <Switch Grid.Row="6" Grid.Column="1" IsToggled="{Binding IsActive}"/>
 
                 <Label Grid.Row="7" Text="Employee Type" />
                 <FlexLayout
@@ -84,45 +103,46 @@
                         <Label Text="Full-Time" />
                         <RadioButton 
                             x:Name="FullTime"
-                            IsChecked="True"
+                            IsChecked="{Binding IsFullTime}"
                             GroupName="EmployeeType" />
                     </HorizontalStackLayout>
 
                     <HorizontalStackLayout>
                         <Label Text="Part-Time" />
-                        <RadioButton GroupName="EmployeeType" />
+                        <RadioButton 
+                            IsChecked="{Binding IsFullTime, Converter={StaticResource invertedBoolean}}"
+                            GroupName="EmployeeType" />
                     </HorizontalStackLayout>
                 </FlexLayout>
 
                 <Label Grid.Row="8" Text="Birth Date" />
-                <DatePicker Grid.Row="8" Grid.Column="1" HorizontalOptions="Start" />
+                <DatePicker 
+                    Grid.Row="8" 
+                    Grid.Column="1" 
+                    HorizontalOptions="Start" 
+                    Date="{Binding BirthDate}"/>
 
                 <Label Grid.Row="9" Text="Start Time" />
                 <TimePicker 
                     Grid.Row="9" 
                     Grid.Column="1"
-                    Time="06:00:00"
-                    BindingContext="{x:Reference FullTime}"
-                    IsEnabled="{Binding IsChecked, Converter={StaticResource invertedBoolean}}"/>
+                    Time="{Binding StartTime}"
+                    IsEnabled="{Binding IsFullTime, Converter={StaticResource invertedBoolean}}"/>
 
                 <Label Grid.Row="10" Text="Phone" />
                 <FlexLayout Grid.Row="10" Grid.Column="1" Wrap="Wrap" Direction="Row">
-                    <Entry MinimumWidthRequest="220" />
-                    <Picker>
-                        <Picker.ItemsSource>
-                            <x:Array Type="{x:Type x:String}">
-                                <x:String>Home</x:String>
-                                <x:String>Mobile</x:String>
-                                <x:String>Other</x:String>
-                            </x:Array>
-                        </Picker.ItemsSource>
-                    </Picker>
+                    <Entry 
+                        MinimumWidthRequest="220" 
+                        Text="{Binding Phone}"/>
+                    <Picker 
+                        ItemsSource="{StaticResource PhoneTypes}" 
+                        SelectedItem="{Binding PhoneType}"/>
                 </FlexLayout>
 
                 <partial:AddressView Grid.Row="11" Grid.ColumnSpan="2" />
 
                 <HorizontalStackLayout Grid.Row="12" Grid.Column="1">
-                    <Button Text="Save" />
+                    <Button Text="Save" Clicked="SaveButton_Clicked"/>
                     <Button Text="Cancel" />
                 </HorizontalStackLayout>
             </Grid>

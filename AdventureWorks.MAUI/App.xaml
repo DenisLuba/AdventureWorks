@@ -5,7 +5,14 @@
              xmlns:values="clr-namespace:AdventureWorks.Resources.Values"
              x:Class="AdventureWorks.App">
     <Application.Resources>
+        
         <ResourceDictionary>
+            <x:Array x:Key="PhoneTypes" Type="{x:Type x:String}">
+                <x:String>Home</x:String>
+                <x:String>Mobile</x:String>
+                <x:String>Other</x:String>
+            </x:Array>
+            
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Resources/Styles/Colors.xaml" />
                 <ResourceDictionary Source="Resources/Styles/Styles.xaml" />

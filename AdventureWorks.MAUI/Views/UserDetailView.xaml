@@ -16,7 +16,7 @@
             LoginId="JohnSmith123"
             FirstName="John"
             LastName="Smith"
-            Emali="John@smith.com"
+            Email="John@smith.com"
             Phone="615.222.2333"
             PhoneType="Mobile"
             IsFullTime="True"
@@ -59,7 +59,7 @@
                 <Entry Grid.Row="3" Grid.Column="1" Text="{Binding LastName}" />
 
                 <Label Grid.Row="4" Text="Email Address" />
-                <Entry Grid.Row="4" Grid.Column="1" Text="{Binding Emali}" />
+                <Entry Grid.Row="4" Grid.Column="1" Text="{Binding Email}" />
 
                 <Label Grid.Row="5" Text="Is Enrolled?" />
                 <FlexLayout

@@ -1,25 +1,27 @@
-using AdventureWorks.EntityLayer.EntityClasses;
+using AdventureWorks.ViewModelLayer;
 
 namespace AdventureWorks.Views;
 
 public partial class UserDetailView : ContentPage
 {
-	public User UserObject { get; set; }
+	public UserViewModel? ViewModel { get; set; }
 	public UserDetailView()
 	{
 		InitializeComponent();
-
-		UserObject = (User)Resources["viewModel"];
-	}
+    }
 
     protected override void OnAppearing()
     {
         base.OnAppearing();
 
-        UserObject.LoginId = "PeterPiper384";
-        UserObject.FirstName = "Peter";
-        UserObject.LastName = "Piper";
-        UserObject.Email = "Peter@pipering.com";
+        // Create a new instance of UserViewModel
+        ViewModel = new();
+
+        // Set the Page BindingContext
+        BindingContext = ViewModel;
+
+        // Retrieve a User
+        ViewModel.Get(1);
     }
 
     private void SaveButton_Clicked(object sender, EventArgs e)

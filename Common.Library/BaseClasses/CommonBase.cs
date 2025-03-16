@@ -18,7 +18,7 @@ public abstract class CommonBase : INotifyPropertyChanged
     /// <summary>
     /// Initialize any properties of this class
     /// </summary>
-    private void Init()
+    public virtual void Init()
     {
     }
     #endregion

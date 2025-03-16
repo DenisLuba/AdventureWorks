@@ -7,6 +7,23 @@ namespace AdventureWorks.ViewModelLayer;
 
 public class UserViewModel : ViewModelBase
 {
+    #region Constructors
+    public UserViewModel() : base()
+    {
+    }
+
+    public UserViewModel(IRepository<User>? repository) : base()
+    {
+        Repository = repository;
+    }
+
+    public UserViewModel(IRepository<User>? userRepository, IRepository<PhoneType>? phoneRepository)
+    {
+        Repository = userRepository;
+        _PhoneTypeRepository = phoneRepository;
+    }
+    #endregion
+
     #region Private Variables
     private User? _UserObject = new();
     private readonly IRepository<User>? Repository;
@@ -39,23 +56,6 @@ public class UserViewModel : ViewModelBase
                 RaisePropertyChanged(nameof(PhoneTypesList));
             }
         }
-    }
-    #endregion
-
-    #region Constructors
-    public UserViewModel() : base()
-    {
-    }
-
-    public UserViewModel(IRepository<User>? repository) : base()
-    {
-        Repository = repository;
-    }
-
-    public UserViewModel(IRepository<User>? userRepository, IRepository<PhoneType>? phoneRepository)
-    {
-        Repository = userRepository;
-        _PhoneTypeRepository = phoneRepository;
     }
     #endregion
 

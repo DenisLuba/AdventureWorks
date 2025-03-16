@@ -1,3 +1,4 @@
+using AdventureWorks.MAUI.CommandClasses;
 using AdventureWorks.ViewModelLayer;
 
 namespace AdventureWorks.Views;
@@ -5,7 +6,7 @@ namespace AdventureWorks.Views;
 public partial class UserDetailView : ContentPage
 {
 	public UserViewModel ViewModel { get; set; }
-	public UserDetailView(UserViewModel viewModel)
+	public UserDetailView(UserViewModelCommands viewModel)
 	{
 		InitializeComponent();
 
@@ -24,10 +25,5 @@ public partial class UserDetailView : ContentPage
 
         // Retrieve a User
         ViewModel.Get(3);
-    }
-
-    private void SaveButton_Clicked(object sender, EventArgs e)
-    {
-		System.Diagnostics.Debugger.Break();
     }
 }

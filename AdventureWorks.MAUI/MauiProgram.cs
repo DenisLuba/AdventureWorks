@@ -9,6 +9,7 @@ using AdventureWorks.EntityLayer;
 using AdventureWorks.DataLayer;
 using AdventureWorks.Views;
 using AdventureWorks.ViewModelLayer;
+using AdventureWorks.MAUI.CommandClasses;
 #if WINDOWS
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Windowing;
@@ -42,7 +43,7 @@ public static class MauiProgram
         builder.Services.AddScoped<IRepository<AdventureWorks.EntityLayer.Color>, ColorRepository>();
         builder.Services.AddScoped<IRepository<PhoneType>, PhoneTypeRepository>();
 
-        builder.Services.AddScoped<UserViewModel>();
+        builder.Services.AddScoped<UserViewModelCommands>();
         builder.Services.AddScoped<UserDetailView>();
 
 #if WINDOWS

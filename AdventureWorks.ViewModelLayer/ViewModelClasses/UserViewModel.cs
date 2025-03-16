@@ -9,6 +9,9 @@ public class UserViewModel : ViewModelBase
 {
     #region Private Variables
     private User? _UserObject = new();
+    private readonly IRepository<User>? Repository;
+    private readonly IRepository<PhoneType>? _PhoneTypeRepository;
+    private ObservableCollection<string> _PhoneTypesList = [];
     #endregion
 
     #region Public Properties
@@ -23,6 +26,36 @@ public class UserViewModel : ViewModelBase
                 RaisePropertyChanged(nameof(UserObject));
             }
         }
+    }
+
+    public ObservableCollection<string> PhoneTypesList
+    {
+        get => _PhoneTypesList;
+        set
+        {
+            if (_PhoneTypesList != value)
+            {
+                _PhoneTypesList = value;
+                RaisePropertyChanged(nameof(PhoneTypesList));
+            }
+        }
+    }
+    #endregion
+
+    #region Constructors
+    public UserViewModel() : base()
+    {
+    }
+
+    public UserViewModel(IRepository<User>? repository) : base()
+    {
+        Repository = repository;
+    }
+
+    public UserViewModel(IRepository<User>? userRepository, IRepository<PhoneType>? phoneRepository)
+    {
+        Repository = userRepository;
+        _PhoneTypeRepository = phoneRepository;
     }
     #endregion
 
@@ -43,29 +76,35 @@ public class UserViewModel : ViewModelBase
     {
         try
         {
-            // TODO: Get a User from a data store
-
-            // MOCK Data
-            UserObject = new User
+            // Get a User from a data store
+            if (Repository is not null)
             {
-                UserId = id,
-                LoginId = "SallyJones615",
-                FirstName = "Sally",
-                LastName = "Jones",
-                Email = "Sally@jones.com",
-                Phone = "615.987.3456",
-                PhoneType = "Mobile",
-                IsFullTime= true,
-                IsEnrolledIn401k = true,
-                IsEnrolledInFlexTime = false,
-                IsEnrolledInHealthCare = true,
-                IsEnrolledInHSA = false,
-                IsActive = true,
-                // BirthDate = Convert.ToDateTime("12-08-1989"), // 12 августа для RU, но для US будет 8 декабря, поэтому можно использовать:
-                BirthDate = DateTime.ParseExact(s: "12-08-1989", format: "dd-MM-yyyy", CultureInfo.InvariantCulture),
-                // где InvariantCulture - нейтральная культура, не зависящая от региональных настроек системы
-                StartTime = new TimeSpan(hours: 7, minutes: 30, seconds: 0)
-            };
+                UserObject = Repository.Get(id);
+            }
+            else
+            {
+                // MOCK Data
+                UserObject = new User
+                {
+                    UserId = id,
+                    LoginId = "SallyJones615",
+                    FirstName = "Sally",
+                    LastName = "Jones",
+                    Email = "Sally@jones.com",
+                    Phone = "615.987.3456",
+                    PhoneType = new PhoneType { TypeDescription = "Mobile" },
+                    IsFullTime = true,
+                    IsEnrolledIn401k = true,
+                    IsEnrolledInFlexTime = false,
+                    IsEnrolledInHealthCare = true,
+                    IsEnrolledInHSA = false,
+                    IsActive = true,
+                    // BirthDate = Convert.ToDateTime("12-08-1989"), // 12 августа для RU, но для US будет 8 декабря, поэтому можно использовать:
+                    BirthDate = DateTime.ParseExact(s: "12-08-1989", format: "dd-MM-yyyy", CultureInfo.InvariantCulture),
+                    // где InvariantCulture - нейтральная культура, не зависящая от региональных настроек системы
+                    StartTime = new TimeSpan(hours: 7, minutes: 30, seconds: 0)
+                };
+            }
         }
         catch (Exception ex)
         {
@@ -73,6 +112,20 @@ public class UserViewModel : ViewModelBase
         }
 
         return UserObject;
+    }
+    #endregion
+
+    #region GetPhoneTypes Method
+    public ObservableCollection<string> GetPhoneTypes()
+    {
+        if (_PhoneTypesList is not null)
+        {
+            var list = _PhoneTypeRepository?.Get() ?? [];
+
+            PhoneTypesList = new ObservableCollection<string>(list.Select(row => row.TypeDescription ?? string.Empty));
+        }
+
+        return PhoneTypesList;
     }
     #endregion
 

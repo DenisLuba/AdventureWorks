@@ -118,8 +118,8 @@
                         MinimumWidthRequest="220" 
                         Text="{Binding UserObject.Phone}"/>
                     <Picker 
-                        ItemsSource="{StaticResource PhoneTypes}" 
-                        SelectedItem="{Binding UserObject.PhoneType}"/>
+                        ItemsSource="{Binding PhoneTypesList}" 
+                        SelectedItem="{Binding UserObject.PhoneType.TypeDescription}"/>
                 </FlexLayout>
 
                 <partial:AddressView Grid.Row="11" Grid.ColumnSpan="2" />

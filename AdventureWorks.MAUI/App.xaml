@@ -7,11 +7,11 @@
     <Application.Resources>
         
         <ResourceDictionary>
-            <x:Array x:Key="PhoneTypes" Type="{x:Type x:String}">
+            <!--<x:Array x:Key="PhoneTypes" Type="{x:Type x:String}">
                 <x:String>Home</x:String>
                 <x:String>Mobile</x:String>
                 <x:String>Other</x:String>
-            </x:Array>
+            </x:Array>-->
             
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Resources/Styles/Colors.xaml" />

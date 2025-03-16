@@ -12,7 +12,7 @@ public class User : EntityBase
     private string _Email = string.Empty;
     private string _Password = string.Empty;
     private string _Phone = string.Empty;
-    private string _PhoneType = string.Empty;
+    private PhoneType _PhoneType = new();
     private bool _IsFullTime;
     private bool _IsEnrolledIn401k;
     private bool _IsEnrolledInHealthCare;
@@ -117,7 +117,7 @@ public class User : EntityBase
         }
     }
 
-    public string PhoneType
+    public PhoneType PhoneType
     {
         get => _PhoneType;
         set

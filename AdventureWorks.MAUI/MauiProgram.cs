@@ -4,6 +4,11 @@ using Microsoft.Maui.Handlers;
 using Microsoft.Maui.Platform;
 using Microsoft.Maui.Controls.PlatformConfiguration;
 using Microsoft.Maui;
+using Common.Library;
+using AdventureWorks.EntityLayer;
+using AdventureWorks.DataLayer;
+using AdventureWorks.Views;
+using AdventureWorks.ViewModelLayer;
 #if WINDOWS
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Windowing;
@@ -31,6 +36,14 @@ public static class MauiProgram
                 handlers.AddHandler<Microsoft.Maui.Controls.TimePicker, CustomTimePickerHandler>();
 #endif
             });
+
+        // DI Services
+        builder.Services.AddScoped<IRepository<User>, UserRepository>();
+        builder.Services.AddScoped<IRepository<AdventureWorks.EntityLayer.Color>, ColorRepository>();
+        builder.Services.AddScoped<IRepository<PhoneType>, PhoneTypeRepository>();
+
+        builder.Services.AddScoped<UserViewModel>();
+        builder.Services.AddScoped<UserDetailView>();
 
 #if WINDOWS
         SetWindowOptions(builder);

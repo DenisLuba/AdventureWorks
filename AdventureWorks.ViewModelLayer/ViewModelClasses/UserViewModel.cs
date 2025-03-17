@@ -26,9 +26,10 @@ public class UserViewModel : ViewModelBase
 
     #region Private Variables
     private User? _UserObject = new();
+    private ObservableCollection<User> _UserList = new();
+    private ObservableCollection<string> _PhoneTypesList = [];
     private readonly IRepository<User>? Repository;
     private readonly IRepository<PhoneType>? _PhoneTypeRepository;
-    private ObservableCollection<string> _PhoneTypesList = [];
     #endregion
 
     #region Public Properties
@@ -41,6 +42,19 @@ public class UserViewModel : ViewModelBase
             {
                 _UserObject = value;
                 RaisePropertyChanged(nameof(UserObject));
+            }
+        }
+    }
+
+    public ObservableCollection<User> UserList
+    {
+        get => _UserList;
+        set
+        {
+            if (_UserList != value)
+            {
+                _UserList = value;
+                RaisePropertyChanged(nameof(UserList));
             }
         }
     }
@@ -60,9 +74,18 @@ public class UserViewModel : ViewModelBase
     #endregion
 
     #region Get Method
+    /// <summary>
+    /// Get a collection of the user objects.
+    /// </summary>
+    /// <returns>An Observable Collection of user objects.</returns>
     public ObservableCollection<User> Get()
     {
-        return [];
+        if (Repository is not null)
+        {
+            UserList = new ObservableCollection<User>(Repository.Get());
+        }
+
+        return UserList;
     }
     #endregion
 

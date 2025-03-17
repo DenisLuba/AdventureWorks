@@ -1,19 +1,46 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:view_model="clr-namespace:AdventureWorks.MAUI.CommandClasses"
+             xmlns:models="clr-namespace:AdventureWorks.EntityLayer;assembly=AdventureWorks.EntityLayer"
+             xmlns:partial="clr-namespace:AdventureWorks.ViewsPartial"
+             x:DataType="view_model:UserViewModelCommands"
              x:Class="AdventureWorks.Views.UserListView"
              Title="{StaticResource UserListTitle}">
-    
-    <VerticalStackLayout
-        VerticalOptions="Center"
-        HorizontalOptions="Center"
-        Spacing="10">
-        <Label 
-            Text="User List"
-            FontSize="Header"
-            HorizontalOptions="Center" />
-        <Button
-            Text="Navigate to Detail"
-            Clicked="NavigateToDetail_Clicked" />
-    </VerticalStackLayout>
+
+    <Border Style="{StaticResource Border.Page}">
+        <Grid RowDefinitions="Auto, *">
+
+            <partial:HeaderView 
+                ViewTitle="{StaticResource UserListTitle}"
+                ViewDescription="The list of users in the system." />
+
+            <ListView Grid.Row="1" ItemsSource="{Binding UserList}">
+                <ListView.ItemTemplate>
+                    <DataTemplate x:DataType="models:User">
+                        <ViewCell>
+                            <Frame Margin="8" Padding="12">
+                                <VerticalStackLayout Spacing="4">
+                                    <HorizontalStackLayout>
+                                        <Label
+                                            FontAttributes="Bold"
+                                            FontSize="Title"
+                                            Text="{Binding LastNameFirstName}" />
+                                    </HorizontalStackLayout>
+                                    <HorizontalStackLayout>
+                                        <Label Text="Email" />
+                                        <Label Text="{Binding Email}" />
+                                    </HorizontalStackLayout>
+                                    <HorizontalStackLayout Margin="5,10,5,5">
+                                        <Button Text="Edit" />
+                                        <Button Text="Delete" />
+                                    </HorizontalStackLayout>
+                                </VerticalStackLayout>
+                            </Frame>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </Grid>
+    </Border>
 </ContentPage>

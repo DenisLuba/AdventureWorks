@@ -1,18 +1,17 @@
 using AdventureWorks.MAUI.CommandClasses;
-using System.Runtime.Serialization;
 
 namespace AdventureWorks.Views;
 
-public partial class UserListView : ContentPage
+public partial class ProductListView : ContentPage
 {
-	public UserListView(UserViewModelCommands viewModel)
+	public ProductListView(ProductViewModelCommands viewModel)
 	{
 		InitializeComponent();
 
 		ViewModel = viewModel;
 	}
 
-	private readonly UserViewModelCommands ViewModel;
+	private readonly ProductViewModelCommands ViewModel;
 
     protected override void OnAppearing()
     {

@@ -45,6 +45,12 @@ public static class MauiProgram
 
         builder.Services.AddScoped<UserViewModelCommands>();
         builder.Services.AddScoped<UserDetailView>();
+        builder.Services.AddScoped<UserListView>();
+
+        builder.Services.AddScoped<IRepository<Product>, ProductRepository>();
+        builder.Services.AddScoped<ProductViewModelCommands>();
+        builder.Services.AddScoped<ProductDetailView>();
+        builder.Services.AddScoped<ProductListView>();
 
 #if WINDOWS
         SetWindowOptions(builder);

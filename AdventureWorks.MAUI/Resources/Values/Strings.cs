@@ -11,7 +11,8 @@ class Strings : ResourceDictionary
         { "ColorListTitle", "Color List" },
         { "PhoneTypesListTitle", "Phone Types List" },
         { "ProductDetailTitle", "Product Information" },
-        { "UserListTitle", "User List" }
+        { "UserListTitle", "User List" },
+        { "ProductListTitle", "Product List" }
     };
 
     public Strings()

@@ -156,7 +156,7 @@ public class UserViewModel : ViewModelBase
     public virtual bool Save()
     {
         // TODO: Write code to save data
-        System.Diagnostics.Debugger.Break();
+       
 
         return true;
     }

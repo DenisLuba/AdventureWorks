@@ -6,6 +6,7 @@
              xmlns:partial="clr-namespace:AdventureWorks.ViewsPartial"
              x:DataType="view_model:UserViewModelCommands"
              x:Class="AdventureWorks.Views.UserListView"
+             x:Name="UserListPage"
              Title="{StaticResource UserListTitle}">
 
     <Border Style="{StaticResource Border.Page}">
@@ -32,7 +33,10 @@
                                         <Label Text="{Binding Email}" />
                                     </HorizontalStackLayout>
                                     <HorizontalStackLayout Margin="5,10,5,5">
-                                        <Button Text="Edit" />
+                                        <Button 
+                                            Text="Edit"
+                                            Command="{Binding Source={x:Reference UserListPage}, Path=BindingContext.EditCommand}"
+                                            CommandParameter="{Binding UserId}" />
                                         <Button Text="Delete" />
                                     </HorizontalStackLayout>
                                 </VerticalStackLayout>

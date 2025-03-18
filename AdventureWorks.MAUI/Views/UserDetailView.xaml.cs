@@ -1,11 +1,14 @@
 using AdventureWorks.MAUI.CommandClasses;
-using AdventureWorks.ViewModelLayer;
+using AdventureWorks.EntityLayer;
 
 namespace AdventureWorks.Views;
 
+[QueryProperty(nameof(UserId), "id")]
 public partial class UserDetailView : ContentPage
 {
-	public UserViewModel ViewModel { get; set; }
+	public UserViewModelCommands ViewModel { get; set; }
+    public int UserId { get; set; }
+
 	public UserDetailView(UserViewModelCommands viewModel)
 	{
 		InitializeComponent();
@@ -24,6 +27,6 @@ public partial class UserDetailView : ContentPage
         ViewModel.GetPhoneTypes();
 
         // Retrieve a User
-        ViewModel.Get(3);
+        ViewModel.Get(UserId);
     }
 }

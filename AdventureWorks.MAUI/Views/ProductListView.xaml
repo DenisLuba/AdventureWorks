@@ -6,6 +6,7 @@
              xmlns:models="clr-namespace:AdventureWorks.EntityLayer;assembly=AdventureWorks.EntityLayer"
              x:DataType="view_model:ProductViewModelCommands"
              x:Class="AdventureWorks.Views.ProductListView"
+             x:Name="ProductListPage"
              Title="{StaticResource ProductListTitle}">
 
     <Border Style="{StaticResource Border.Page}">
@@ -35,7 +36,10 @@
                                     <Label Text="{Binding ListPrice, StringFormat='{0:c}'}" />
                                 </HorizontalStackLayout>
                                 <HorizontalStackLayout Margin="5,10,5,5">
-                                    <Button Text="Edit" />
+                                    <Button 
+                                        Text="Edit" 
+                                        Command="{Binding Source={x:Reference ProductListPage}, Path=BindingContext.EditCommand}"
+                                        CommandParameter="{Binding ProductId}"/>
                                     <Button Text="Delete" />
                                 </HorizontalStackLayout>
                             </VerticalStackLayout>

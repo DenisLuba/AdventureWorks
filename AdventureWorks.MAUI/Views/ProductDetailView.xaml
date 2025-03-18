@@ -2,8 +2,15 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:partial="clr-namespace:AdventureWorks.ViewsPartial"
+             xmlns:view_models="clr-namespace:AdventureWorks.MAUI.CommandClasses"
+             xmlns:converters="clr-namespace:AdventureWorks.Converters"
+             x:DataType="view_models:ProductViewModelCommands"
              x:Class="AdventureWorks.Views.ProductDetailView"
              Title="{StaticResource ProductDetailTitle}">
+
+    <ContentPage.Resources>
+        <converters:StringToDoubleConverter x:Key="StringToDoubleConverter" />
+    </ContentPage.Resources>
 
     <Border Style="{StaticResource Border.Page}">
         <ScrollView>
@@ -19,59 +26,59 @@
                     ViewDescription="Use this screen to modify product information." />
 
                 <Label Grid.Row="1" Text="Product Name" />
-                <Entry Grid.Row="1" Grid.Column="1" />
+                <Entry Grid.Row="1" Grid.Column="1" Text="{Binding ProductObject.Name}"/>
 
                 <Label Grid.Row="2" Text="Product Number" />
-                <Entry Grid.Row="2" Grid.Column="1" Keyboard="Numeric" />
+                <Entry Grid.Row="2" Grid.Column="1" Keyboard="Numeric" Text="{Binding ProductObject.ProductNumber}"/>
 
                 <Label Grid.Row="3" Text="Color" />
-                <Entry Grid.Row="3" Grid.Column="1" />
+                <Entry Grid.Row="3" Grid.Column="1" Text="{Binding ProductObject.Color}"/>
 
                 <Label Grid.Row="4" Text="Cost" />
                 <HorizontalStackLayout Grid.Row="4" Grid.Column="1">
-                    <Entry Text="{Binding Value}" BindingContext="{x:Reference CostStepper}" />
+                    <Entry Text="{Binding Source={x:Reference CostStepper}, Path=Value}" />
                     <Stepper
                         x:Name="CostStepper"
-                        Minimum="1"
-                        Maximum="{Binding Value}"
-                        BindingContext="{x:Reference PriceStepper}"
+                        Value="{Binding ProductObject.StandardCost}"
+                        Minimum="0"
+                        Maximum="9999"
                         Increment="1" />
                 </HorizontalStackLayout>
 
                 <Label Grid.Row="5" Text="Price" />
                 <HorizontalStackLayout Grid.Row="5" Grid.Column="1">
-                    <Entry Text="{Binding Value}" BindingContext="{x:Reference PriceStepper}" />
+                    <Entry Text="{Binding Source={x:Reference PriceStepper}, Path=Value}"/>
                     <Stepper
                         x:Name="PriceStepper"
-                        Minimum="{Binding Value}"
-                        BindingContext="{x:Reference CostStepper}"
+                        Value="{Binding ProductObject.ListPrice}"
+                        Minimum="0"
                         Maximum="9999"
                         Increment="1" />
                 </HorizontalStackLayout>
 
                 <Label Grid.Row="6" Text="Size" />
-                <Entry Grid.Row="6" Grid.Column="1" Keyboard="Numeric" />
+                <Entry Grid.Row="6" Grid.Column="1" Keyboard="Numeric" Text="{Binding ProductObject.Size}" />
 
                 <Label Grid.Row="7" Text="Weight" />
-                <Entry Grid.Row="7" Grid.Column="1" Keyboard="Numeric" />
+                <Entry Grid.Row="7" Grid.Column="1" Keyboard="Numeric" Text="{Binding ProductObject.Weight}" />
 
                 <Label Grid.Row="8" Text="Category" />
-                <Entry Grid.Row="8" Grid.Column="1" />
+                <Entry Grid.Row="8" Grid.Column="1" Text="{Binding ProductObject.Category}" />
 
                 <Label Grid.Row="9" Text="Model" />
-                <Entry Grid.Row="9" Grid.Column="1" />
+                <Entry Grid.Row="9" Grid.Column="1" Text="{Binding ProductObject.Model}" />
 
                 <Label Grid.Row="10" Text="Selling Start Date" />
-                <Entry Grid.Row="10" Grid.Column="1" />
+                <Entry Grid.Row="10" Grid.Column="1" Text="{Binding ProductObject.SellStartDate}" />
 
                 <Label Grid.Row="11" Text="Selling End Date" />
-                <Entry Grid.Row="11" Grid.Column="1" />
+                <Entry Grid.Row="11" Grid.Column="1" Text="{Binding ProductObject.SellEndDate}" />
 
                 <Label Grid.Row="12" Text="Discontinued Date" />
-                <Entry Grid.Row="12" Grid.Column="1" />
+                <Entry Grid.Row="12" Grid.Column="1" Text="{Binding ProductObject.DiscountinuedDate}"/>
 
                 <HorizontalStackLayout Grid.Row="13" Grid.Column="1">
-                    <Button Text="Save" />
+                    <Button Text="Save" Command="{Binding SaveCommand}"/>
                     <Button Text="Cancel" />
                 </HorizontalStackLayout>
             </Grid>

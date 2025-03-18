@@ -107,7 +107,9 @@ public class ProductViewModel : ViewModelBase
     #region Save Method
     public bool Save()
     {
-        throw new NotImplementedException();
+        // TODO: Write code to save data
+
+        return true;
     } 
     #endregion
 }
